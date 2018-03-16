@@ -3,16 +3,16 @@ import java.util.Scanner;
 public class No14563 {
 
 	public static int calculate(int value) {
-		int compareSum = 1;
+		int compareSum = 0;
 		int endNum = value;
-		int numOfLoop = value / 2;
 
-		for (int i = 2; i < numOfLoop; i++) {
+		for (int i = 1; i < value; i++) {
 			if (!(i < endNum))
 				break;
 			if ((value % i) == 0) {
 				compareSum += i;
-				compareSum += value / i;
+				if (i != 1 && i != (value / i))
+					compareSum += value / i;
 				endNum = value / i;
 			}
 		}
@@ -20,9 +20,7 @@ public class No14563 {
 	}
 
 	public static void printResult(int compareSum, int value) {
-		if (value == 1)
-			System.out.println("Deficient");
-		else if (compareSum == value)
+		if (compareSum == value)
 			System.out.println("Perfect");
 		else if (compareSum < value)
 			System.out.println("Deficient");
