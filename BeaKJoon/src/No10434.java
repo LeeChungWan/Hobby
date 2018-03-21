@@ -25,7 +25,7 @@ public class No10434 {
 					System.out.println(" No");
 				}
 
-			}else{
+			} else {
 				System.out.println(" No");
 			}
 		}
@@ -47,27 +47,33 @@ public class No10434 {
 	}
 
 	public static int test(int num) {
-		int sum = 0;
-		int divider = 1;
-		while (true) {
-			if (num == 1)
-				return 0;
-			else if (num / divider == 0) {
-				break;
-			} else {
-				if (num % (divider * 10) != 0) {
-					sum += Math.pow((num % (divider * 10)) / divider, 2);
-					divider *= 10;
+		try {
+			int sum = 0;
+			int divider = 1;
+			while (true) {
+				if (num == 1)
+					return 0;
+				else if (num / divider == 0) {
+					break;
 				} else {
-					divider *= 10;
+					if (num % (divider * 10) != 0) {
+						sum += Math.pow((num % (divider * 10)) / divider, 2);
+						divider *= 10;
+					} else {
+						divider *= 10;
+					}
 				}
 			}
-		}
 
-		if (sum == 1)
-			return sum;
-		else
-			return test(sum);
+			if (sum == 1)
+				return sum;
+			else
+				return test(sum);
+
+		} catch (StackOverflowError e) {
+			// TODO: handle exception
+			return -1;
+		}
 
 	}
 
