@@ -1,7 +1,4 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Scanner;
 
 /*
@@ -24,67 +21,39 @@ import java.util.Scanner;
 public class No2878 {
 
 	public static int countBadMood(int overCandy, int[] friend) {
-
+		int minimum = friend[0] * friend.length;
+		int share = overCandy / friend.length;
+		int rest = overCandy % friend.length;
+		int result = 0;
 		int index = 0;
+		int midOverCandy = 0;
+		int midResult = 0;
+		int[] moreFriend;
 
-		Arrays.sort(friend); // 오름차순
-
-		int temp = overCandy / friend.length;
-		int temp2 = overCandy % friend.length;
-
-		if (temp != 0) { // 모든 친구들에게 적어도 temp개의 캔디를 수거해야하는 경우
-			if (friend[0] >= temp) {
-				if (temp2 == 0) { // 똑같이 temp개 수거하면 되는경우
-					int sum = friend.length * temp * temp;
-					return sum;
-				} else { // 누구는 하나를 더 받는 경우
-					int sum = temp + 1;
-					int sum1 = temp2 * sum * sum + (friend.length - temp2) * temp * temp;
-					return sum1;
-				}
+		if (overCandy <= minimum) { // 이쪽이 느낌이 쌔한디...
+			if (rest != 0) {
+				result = (share + 1) * (share + 1) * rest + share * share * (friend.length - rest);
+				return result;
 			} else {
-				int temp3 = 0; // 다른애들한테 더 줘야되는 캔디의 수
-				for (int i = 0; i < friend.length; i++) {
-					if (friend[i] < temp) {
-						index++;
-						temp3 += temp - friend[i];
-					} else
-						break;
-				}
-
-				int sum3 = 0;
-				for (int i = 0; i < index; i++) {
-					sum3 += friend[i] * friend[i];
-				}
-
-				int[] newarr = new int[friend.length - index];
-				System.arraycopy(friend, index, newarr, 0, newarr.length);
-				temp3 += temp2; // 더 수거해야 하는 캔디의 수
-				temp3 += temp2*(friend.length-index);
-				return sum3 + countBadMood(temp3, newarr);
-
+				result = share * share * friend.length;
+				return result;
 			}
-		} else { // 몇명의 친구들만 캔디를 하나씩 수거해야 하는 경우
-			return temp2;
+		} else {
+			for (int i = 0; i < friend.length; i++) {
+				if (friend[i] <= share) {
+					index++;
+					midOverCandy += friend[i];
+				} else
+					break;
+			}
+			for (int i = 0; i < index; i++) {
+				midResult += friend[i] * friend[i];
+			}
+			moreFriend = new int[friend.length - index];
+			System.arraycopy(friend, index, moreFriend, 0, moreFriend.length);
+			overCandy -= midOverCandy;
+			return midResult + countBadMood(overCandy, moreFriend);
 		}
-
-		// int sum = 0;
-		// while (totalCandy != 0) {
-		// Arrays.sort(friend); // 오름차순 정렬
-		// friend[friend.length - 1]--;
-		// totalCandy--;
-		// }
-		//
-		// Arrays.sort(friend);
-		//
-		// for (int i = friend.length - 1; i >= 0; i--) {
-		// if (friend[i] == 0)
-		// break;
-		// else {
-		// sum += Math.pow(friend[i], 2);
-		// }
-		// }
-		// System.out.println((int)(sum % (Math.pow(2, 64))));
 	}
 
 	private static int sum(int[] friend) {
@@ -109,8 +78,9 @@ public class No2878 {
 			friend[i] = sc.nextInt();
 		}
 
-		int sum = sum(friend);
-		int overCandy = sum - totalCandy;
+		int wishCandy = sum(friend);
+		int overCandy = wishCandy - totalCandy;
+		Arrays.sort(friend);
 		System.out.println(countBadMood(overCandy, friend));
 
 		sc.close();
