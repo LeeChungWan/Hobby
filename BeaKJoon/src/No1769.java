@@ -17,7 +17,7 @@ public class No1769 {
 		if (num.length() >= 2)
 			countY++;
 		if (sum / 10 != 0) {
-			num = String.valueOf(sum);
+			num = Integer.toString(sum);
 			count(num, countY);
 		} else {
 			System.out.println(countY);
@@ -33,7 +33,7 @@ public class No1769 {
 		Scanner sc = new Scanner(System.in);
 		String num;
 
-		num = sc.nextLine();
+		num = sc.next();
 		count(num, 0);
 
 		sc.close();
