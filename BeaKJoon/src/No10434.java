@@ -1,4 +1,3 @@
-import java.util.HashMap;
 import java.util.Scanner;
 
 /*
@@ -10,23 +9,23 @@ import java.util.Scanner;
  */
 public class No10434 {
 
-	public static void happyPrimeNumber(HashMap<Integer, Integer> map) {
+	public static void happyPrimeNumber(int[] arr) {
 		int value = 0;
 		int result = -1;
-		int mapSize = map.size();
-		for (int i = 1; i <= mapSize; i++) {
-			value = map.get(i);
-			System.out.print(i + " " + value);
-			result = test(value);
+		int arrSize = arr.length;
+		for (int i = 0; i < arrSize; i++) {
+			value = arr[i];
+			System.out.print((i+1) + " " + value);
 			if (isPrime(value)) {
+				result = test(value);
 				if (result == 1) {
 					System.out.println(" YES");
 				} else {
-					System.out.println(" No");
+					System.out.println(" NO");
 				}
 
 			} else {
-				System.out.println(" No");
+				System.out.println(" NO");
 			}
 		}
 	}
@@ -57,7 +56,9 @@ public class No10434 {
 					break;
 				} else {
 					if (num % (divider * 10) != 0) {
-						sum += Math.pow((num % (divider * 10)) / divider, 2);
+						sum = num % (divider * 10) / divider;
+						sum *= sum;
+						// sum += Math.pow((num % (divider * 10)) / divider, 2);
 						divider *= 10;
 					} else {
 						divider *= 10;
@@ -71,28 +72,28 @@ public class No10434 {
 				return test(sum);
 
 		} catch (StackOverflowError e) {
-			// TODO: handle exception
-			return -1;
+			return 0;
 		}
 
 	}
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 
 		int numOfCase = 0;
 		int key = 0;
 		int value = 0;
-		HashMap<Integer, Integer> map = new HashMap<>();
 		numOfCase = sc.nextInt();
+		int[] arr_value = new int[numOfCase];
 
 		for (int i = 0; i < numOfCase; i++) {
 			key = sc.nextInt();
 			value = sc.nextInt();
-			map.put(key, value);
+			arr_value[i] = value;
 		}
 
-		happyPrimeNumber(map);
+		happyPrimeNumber(arr_value);
 
 		sc.close();
 	}

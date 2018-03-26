@@ -10,44 +10,51 @@ import java.util.Scanner;
  */
 public class No2800 {
 
-	public static void removeBracket(String problem, int numOfBracket) {
-		char[][] stack = add(problem, numOfBracket);
+	public static void removeBracket(String problem, int numOfIndexX) {
+		char[][] stack = add(problem, numOfIndexX);
 	}
 
-	public static char[][] add(String problem, int numOfBracket) {
+	public static char[][] add(String problem, int numOfIndexX) {
 
 		int indexOfX = 0;
 		int indexOfY = 0;
-		char[][] stack = initStack(problem, numOfBracket);
+		char[][] stack = initStack(problem, numOfIndexX);
 
 		for (int i = 0; i < problem.length(); i++) {
 			if (problem.charAt(i) == '(') {
-				stack[indexOfX][indexOfY++] = problem.charAt(i);
+				if (i == 0) {
+					stack[indexOfX][indexOfY++] = problem.charAt(i);
+				} else {
+					indexOfY = 0;
+					stack[++indexOfX][indexOfY++] = problem.charAt(i);
+				}
 				// indexOfY++;
 			} else if (problem.charAt(i) == ')') {
 				stack[indexOfX++][indexOfY] = problem.charAt(i);
 				// indexOfX++;
 				indexOfY = 0;
 			} else {
-				stack[indexOfX++][indexOfY++] = problem.charAt(i);
-				// indexOfX++;
-				// indexOfY++;
+				stack[indexOfX][indexOfY++] = problem.charAt(i);
 			}
 		}
 		return stack;
 	}
 
-	public static int countBracket(String problem) {
+	public static int countIndexOfY(String problem) {
 		int num = 0;
 		for (int i = 0; i < problem.length(); i++) {
 			if (problem.charAt(i) == '(')
 				num++;
+			else if (problem.charAt(i) == ')') {
+				if ((i + 1) < problem.length())
+					num++;
+			}
 		}
 		return num;
 	}
 
-	public static char[][] initStack(String problem, int numOfBracket) {
-		char[][] stack = new char[numOfBracket + 1][];
+	public static char[][] initStack(String problem, int numOfIndexX) {
+		char[][] stack = new char[numOfIndexX][];
 		int indexOfX = 0;
 		int indexOfY = 0;
 		for (int i = 0; i < problem.length(); i++) {
@@ -75,9 +82,9 @@ public class No2800 {
 
 		problem = sc.nextLine();
 
-		int numOfBracket = countBracket(problem);
-		System.out.println(numOfBracket);
-		removeBracket(problem, numOfBracket);
+		int numOfIndexX = countIndexOfY(problem);
+		System.out.println(numOfIndexX);
+		removeBracket(problem, numOfIndexX);
 		sc.close();
 	}
 
