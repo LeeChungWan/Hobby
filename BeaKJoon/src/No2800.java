@@ -12,6 +12,9 @@ public class No2800 {
 
 	public static void removeBracket(String problem, int numOfIndexX) {
 		char[][] stack = add(problem, numOfIndexX);
+		
+		//경우의 수에 따라 괄호를 제거하기 위한 변수 선언.
+		int i = numOfIndexX - 1;
 	}
 
 	public static char[][] add(String problem, int numOfIndexX) {
@@ -28,10 +31,8 @@ public class No2800 {
 					indexOfY = 0;
 					stack[++indexOfX][indexOfY++] = problem.charAt(i);
 				}
-				// indexOfY++;
 			} else if (problem.charAt(i) == ')') {
 				stack[indexOfX++][indexOfY] = problem.charAt(i);
-				// indexOfX++;
 				indexOfY = 0;
 			} else {
 				stack[indexOfX][indexOfY++] = problem.charAt(i);
@@ -40,7 +41,7 @@ public class No2800 {
 		return stack;
 	}
 
-	public static int countIndexOfY(String problem) {
+	public static int countIndexOfX(String problem) {
 		int num = 0;
 		for (int i = 0; i < problem.length(); i++) {
 			if (problem.charAt(i) == '(')
@@ -53,6 +54,7 @@ public class No2800 {
 		return num;
 	}
 
+	// 울퉁불퉁한 모양의 스택을 생성하여 반환.
 	public static char[][] initStack(String problem, int numOfIndexX) {
 		char[][] stack = new char[numOfIndexX][];
 		int indexOfX = 0;
@@ -82,7 +84,7 @@ public class No2800 {
 
 		problem = sc.nextLine();
 
-		int numOfIndexX = countIndexOfY(problem);
+		int numOfIndexX = countIndexOfX(problem);
 		System.out.println(numOfIndexX);
 		removeBracket(problem, numOfIndexX);
 		sc.close();

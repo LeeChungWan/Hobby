@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /*
@@ -8,6 +10,7 @@ import java.util.Scanner;
  * 출력 : 각 테스트 케이스마다, 테스트 케이스의 번호, 입력받은 수, 만일 M이 행복한 소수라면 YES 아니라면 NO를 공백으로 각각 구분하여 출력한다.
  */
 public class No10434 {
+	static List<Integer> checkValue = new ArrayList<>();
 
 	public static void happyPrimeNumber(int[] arr) {
 		int value = 0;
@@ -15,8 +18,9 @@ public class No10434 {
 		int arrSize = arr.length;
 		for (int i = 0; i < arrSize; i++) {
 			value = arr[i];
-			System.out.print((i+1) + " " + value);
+			System.out.print((i + 1) + " " + value);
 			if (isPrime(value)) {
+				checkValue.clear();
 				result = test(value);
 				if (result == 1) {
 					System.out.println(" YES");
@@ -46,38 +50,43 @@ public class No10434 {
 	}
 
 	public static int test(int num) {
-		try {
-			int sum = 0;
-			int divider = 1;
-			while (true) {
-				if (num == 1)
-					return 0;
-				else if (num / divider == 0) {
-					break;
+		int sum = 0;
+		int midSum = 0;
+		int divider = 1;
+		while (true) {
+			if (num == 1)
+				return 0;
+			else if (num / divider == 0) {
+				break;
+			} else {
+				if (num % (divider * 10) != 0) {
+					midSum = num % (divider * 10) / divider;
+					midSum *= midSum;
+					sum += midSum;
+					// sum += Math.pow((num % (divider * 10)) / divider, 2);
+					divider *= 10;
 				} else {
-					if (num % (divider * 10) != 0) {
-						sum = num % (divider * 10) / divider;
-						sum *= sum;
-						// sum += Math.pow((num % (divider * 10)) / divider, 2);
-						divider *= 10;
-					} else {
-						divider *= 10;
-					}
+					divider *= 10;
 				}
 			}
-
-			if (sum == 1)
-				return sum;
-			else
-				return test(sum);
-
-		} catch (StackOverflowError e) {
-			return 0;
 		}
-
+		if (sum == 1)
+			return sum;
+		else if (check(sum))
+			return test(sum);
+		else
+			return 0;
 	}
 
-	@SuppressWarnings("unused")
+	public static boolean check(int sum) {
+		for (int i = 0; i < checkValue.size(); i++) {
+			if (checkValue.get(i) == sum)
+				return false;
+		}
+		checkValue.add(sum);
+		return true;
+	}
+
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 
