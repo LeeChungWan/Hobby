@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -26,11 +27,10 @@ public class No2878 {
 		int rest = overCandy % friend.length;
 		int result = 0;
 		int index = 0;
-		int midOverCandy = 0;
 		int midResult = 0;
 		int[] moreFriend;
 
-		if (overCandy <= minimum) { // ÀÌÂÊÀÌ ´À³¦ÀÌ ½ØÇÑµð...
+		if (overCandy <= minimum) {
 			if (rest != 0) {
 				result = (share + 1) * (share + 1) * rest + share * share * (friend.length - rest);
 				return result;
@@ -42,7 +42,7 @@ public class No2878 {
 			for (int i = 0; i < friend.length; i++) {
 				if (friend[i] <= share) {
 					index++;
-					midOverCandy += friend[i];
+					overCandy -= friend[i];
 				} else
 					break;
 			}
@@ -51,7 +51,6 @@ public class No2878 {
 			}
 			moreFriend = new int[friend.length - index];
 			System.arraycopy(friend, index, moreFriend, 0, moreFriend.length);
-			overCandy -= midOverCandy;
 			return midResult + countBadMood(overCandy, moreFriend);
 		}
 	}
@@ -80,8 +79,10 @@ public class No2878 {
 
 		int wishCandy = sum(friend);
 		int overCandy = wishCandy - totalCandy;
+		long divider = (long) Math.pow(2, 64);
 		Arrays.sort(friend);
-		System.out.println(countBadMood(overCandy, friend));
+		int badMood = (int) (countBadMood(overCandy, friend) % divider);
+		System.out.println(badMood);
 
 		sc.close();
 

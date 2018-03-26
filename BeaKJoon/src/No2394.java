@@ -12,9 +12,17 @@ import java.util.Scanner;
  *      1번 도시에서 N번에 갔다가 다시 돌아올 수 없는 경우에는 0을 출력한다.
  */
 public class No2394 {
-	
-	public static void searchPath(boolean[][] map, boolean[][] visit, int numOfWay){
-		
+
+	public static void searchPath(boolean[][] map, boolean[][] visit, int numOfWay) {
+
+		for (int i = 1; i < numOfWay; i++) {
+			for(int j=1; j<numOfWay; j++){
+				if(map[i][j] != false){
+					
+				}
+			}
+		}
+
 	}
 
 	public static void main(String[] args) {
@@ -37,12 +45,12 @@ public class No2394 {
 			if (src == 0 && dst == 0)
 				break;
 			else {
-				map[src + 1][dst + 1] = true;
-				map[dst + 1][src + 1] = true;
+				map[src][dst] = true;
+				map[dst][src] = true;
 				numOfWay++;
 			}
 		}
-		
+
 		searchPath(map, visit, numOfWay);
 
 		sc.close();
