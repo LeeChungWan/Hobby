@@ -63,7 +63,6 @@ public class No10434 {
 					midSum = num % (divider * 10) / divider;
 					midSum *= midSum;
 					sum += midSum;
-					// sum += Math.pow((num % (divider * 10)) / divider, 2);
 					divider *= 10;
 				} else {
 					divider *= 10;
