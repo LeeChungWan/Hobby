@@ -34,5 +34,4 @@ public class No2004 {
 		System.out.println(count);
 		sc.close();
 	}
-
 }
