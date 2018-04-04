@@ -10,30 +10,34 @@ import javax.swing.JTextField;
 
 import chat.server.ServerGui;
 
-public class ClientGui extends JFrame implements ActionListener{
-	JTextArea jta = new JTextArea(40, 25);
-	JTextField jtf = new JTextField(25);
-	
-	public ClientGui(){
+public class ClientGui extends JFrame implements ActionListener {
+	private JTextArea jta = new JTextArea(40, 25);
+	private JTextField jtf = new JTextField(25);
+	private ClientBackgound client = new ClientBackgound();
+
+	public ClientGui() {
 		add(jta, BorderLayout.CENTER);
 		add(jtf, BorderLayout.SOUTH);
 		jtf.addActionListener(this);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		setBounds(800, 100, 400, 600);
-		setTitle("v.1 client");
+		setTitle("클라이언트");
+
+		client.setGui(this); // gui와 clientBackground 연동
+		client.connet();
 	}
-	
+
 	public static void main(String[] args) {
-		new ServerGui();
+		new ClientGui();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String msg = jtf.getText()+"\n";
+		String msg = jtf.getText() + "\n";
 		jta.append(msg);
 		System.out.print(msg);
-		
+
 		jtf.setText("");
 	}
 
