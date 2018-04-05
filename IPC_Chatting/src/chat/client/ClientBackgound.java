@@ -10,6 +10,7 @@ public class ClientBackgound {
 	private DataInputStream in;
 	private DataOutputStream out;
 	private ClientGui gui;
+	private String msg;
 
 	public ClientGui getGui() {
 		return gui;
@@ -22,13 +23,16 @@ public class ClientBackgound {
 	public void connet() {
 		try {
 			socket = new Socket("127.0.0.1", 7777);
-			System.out.println("서버와 연결되었습니다.");
+			gui.appendMsg("서버와 연결되었습니다. \n");
 
 			out = new DataOutputStream(socket.getOutputStream());
 			in = new DataInputStream(socket.getInputStream());
 
-			out.writeUTF("안녕하세요. 저는 클라이언트입니다.");
-			System.out.println("메시지 전송 완료.");
+			//서버의 msg를 읽어 화면에 출력
+			while (in != null) {
+				msg = in.readUTF();
+				gui.appendMsg("server(상대) : " + msg);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -37,5 +41,15 @@ public class ClientBackgound {
 	public static void main(String[] args) {
 		ClientBackgound clientBackgound = new ClientBackgound();
 		clientBackgound.connet();
+	}
+
+	// 서버로 메시지 전송
+	public void sendMessage(String msg) {
+		try {
+			out.writeUTF(msg);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

@@ -13,6 +13,7 @@ public class ServerBackground {
 	private DataInputStream in;
 	private DataOutputStream out;
 	private ServerGui gui;
+	private String msg;
 
 	public ServerGui getGui() {
 		return gui;
@@ -28,13 +29,16 @@ public class ServerBackground {
 			System.out.println("대기중...");
 			socket = serverSocket.accept();
 			System.out.println(socket.getInetAddress() + "에서 접속했습니다.");
+			gui.appendMsg("클라이언트와 연결되었습니다.\n");
 
 			out = new DataOutputStream(socket.getOutputStream());
 			in = new DataInputStream(socket.getInputStream());
 
-			String msg = in.readUTF();
-			System.out.println("client에서 받은 메세지 : " + msg);
-			 gui.appendMsg(msg);
+			// client의 메시지를 읽어 화면에 출력.
+			while (in != null) {
+				msg = in.readUTF();
+				gui.appendMsg("client(상대) : " + msg);
+			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -44,5 +48,14 @@ public class ServerBackground {
 	public static void main(String[] args) {
 		ServerBackground serverBackground = new ServerBackground();
 		serverBackground.setting();
+	}
+
+	public void sendMessage(String msg) {
+		try {
+			out.writeUTF(msg);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
