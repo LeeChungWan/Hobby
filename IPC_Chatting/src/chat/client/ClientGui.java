@@ -35,10 +35,13 @@ public class ClientGui extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String msg = jtf.getText() + "\n";
-		jta.append(msg);
-		System.out.print(msg);
-
+		jta.append("client(³ª) : "+msg);
+		client.sendMessage(msg);
 		jtf.setText("");
+	}
+
+	public void appendMsg(String msg) {
+		jta.append(msg);
 	}
 
 }
