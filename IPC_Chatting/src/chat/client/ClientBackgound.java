@@ -11,6 +11,7 @@ public class ClientBackgound {
 	private DataOutputStream out;
 	private ClientGui gui;
 	private String msg;
+	private String nickName;
 
 	public ClientGui getGui() {
 		return gui;
@@ -27,11 +28,13 @@ public class ClientBackgound {
 
 			out = new DataOutputStream(socket.getOutputStream());
 			in = new DataInputStream(socket.getInputStream());
-
-			//서버의 msg를 읽어 화면에 출력
+			
+			out.writeUTF(nickName);
+			System.out.println("클라이언트 : 메시지 전송완료");
+			// 서버의 msg를 읽어 화면에 출력
 			while (in != null) {
 				msg = in.readUTF();
-				gui.appendMsg("server(상대) : " + msg);
+				gui.appendMsg("server: " + msg);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -51,5 +54,9 @@ public class ClientBackgound {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 }

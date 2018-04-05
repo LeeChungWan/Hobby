@@ -35,8 +35,8 @@ public class ServerGui extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String msg = jtf.getText() + "\n";
-		jta.append("server(³ª) : " + msg);
+		String msg = "¼­¹ö: " + jtf.getText() + "\n";
+		jta.append(msg);
 		server.sendMessage(msg);
 		jtf.setText("");
 	}
