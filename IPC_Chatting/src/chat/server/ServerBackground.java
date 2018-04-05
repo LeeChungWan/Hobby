@@ -60,7 +60,7 @@ public class ServerBackground {
 		while (it.hasNext()) {
 			key = it.next();
 			try {
-				clientMap.get(key).writeUTF(key + " : " + msg);
+				clientMap.get(key).writeUTF(msg);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -70,12 +70,14 @@ public class ServerBackground {
 
 	// 맵의 내용(클아이언트) 저장과 삭제
 	public void addClient(String nickName, DataOutputStream out) throws IOException {
-		sendMessage(nickName + "님이 접속하였습니다.");
+		gui.appendMsg(nickName + "님이 접속하였습니다.\n");
+		sendMessage(nickName + "님이 접속하였습니다.\n");
 		clientMap.put(nickName, out);
 	}
 
 	public void removeClient(String nickName) {
-		sendMessage(nickName + "님이 로그아웃했습니다.");
+		gui.appendMsg(nickName + "님이 로그아웃했습니다.\n");
+		sendMessage(nickName + "님이 로그아웃했습니다.\n");
 		clientMap.remove(nickName);
 	}
 

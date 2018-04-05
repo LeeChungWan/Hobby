@@ -9,13 +9,12 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import chat.server.ServerGui;
-
+@SuppressWarnings("serial")
 public class ClientGui extends JFrame implements ActionListener {
 	private JTextArea jta = new JTextArea(40, 25);
 	private JTextField jtf = new JTextField(25);
 	private static ClientBackgound client = new ClientBackgound();
-	private static String nickName ;
+	private static String nickName;
 
 	public ClientGui() {
 		add(jta, BorderLayout.CENTER);
@@ -41,8 +40,8 @@ public class ClientGui extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String msg = jtf.getText() + "\n";
-		jta.append(nickName + ": " + msg);
+		String msg = nickName + ": " + jtf.getText() + "\n";
+//		jta.append(msg);
 		client.sendMessage(msg);
 		jtf.setText("");
 	}

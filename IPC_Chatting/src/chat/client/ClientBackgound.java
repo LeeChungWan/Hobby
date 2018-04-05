@@ -24,7 +24,7 @@ public class ClientBackgound {
 	public void connet() {
 		try {
 			socket = new Socket("127.0.0.1", 7777);
-			gui.appendMsg("서버와 연결되었습니다. \n");
+			gui.appendMsg("단체 채팅방에 입장하였습니다. \n");
 
 			out = new DataOutputStream(socket.getOutputStream());
 			in = new DataInputStream(socket.getInputStream());
@@ -34,7 +34,7 @@ public class ClientBackgound {
 			// 서버의 msg를 읽어 화면에 출력
 			while (in != null) {
 				msg = in.readUTF();
-				gui.appendMsg("server: " + msg);
+				gui.appendMsg(msg);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
