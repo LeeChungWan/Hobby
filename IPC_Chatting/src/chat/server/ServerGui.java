@@ -8,10 +8,20 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+@SuppressWarnings("serial")
 public class ServerGui extends JFrame implements ActionListener {
 
 	private JTextArea jta = new JTextArea(40, 25);
 	private JTextField jtf = new JTextField(25);
+	
+	public JTextArea getJta() {
+		return jta;
+	}
+
+	public void setJta(JTextArea jta) {
+		this.jta = jta;
+	}
+
 	// 연동
 	private ServerBackground server = new ServerBackground();
 
@@ -19,6 +29,7 @@ public class ServerGui extends JFrame implements ActionListener {
 		add(jta, BorderLayout.CENTER);
 		add(jtf, BorderLayout.SOUTH);
 		jtf.addActionListener(this);
+		jta.append("서버가 채팅방을 만들었습니다.\n");
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -35,8 +46,8 @@ public class ServerGui extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String msg = jtf.getText() + "\n";
-		jta.append("server(나) : " + msg);
+		String msg = "서버: " + jtf.getText() + "\n";
+		jta.append(msg);
 		server.sendMessage(msg);
 		jtf.setText("");
 	}
