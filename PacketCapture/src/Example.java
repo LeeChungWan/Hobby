@@ -8,7 +8,7 @@ import org.jnetpcap.PcapIf;
 import org.jnetpcap.packet.PcapPacket;  
 import org.jnetpcap.packet.PcapPacketHandler;  
 
-public class PacketCapture {
+public class Example {
 	// 정적으로 jnetpcap.dll 파일 로드
 	static{
 		try{
