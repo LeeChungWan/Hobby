@@ -1,4 +1,3 @@
-import java.math.BigInteger;
 import java.util.Scanner;
 
 /*
@@ -15,23 +14,47 @@ public class No2004 {
 
 		int n = sc.nextInt();
 		int m = sc.nextInt();
-		BigInteger multiOfN = new BigInteger(Integer.toString(n));
-		BigInteger multiOfM = new BigInteger(Integer.toString(m));
-		for (int i = n - 1; i > n - m; i--)
-			multiOfN = multiOfN.multiply(new BigInteger(Integer.toString(i)));
-
-		for (int i = m - 1; i > 0; i--)
-			multiOfM = multiOfM.multiply(new BigInteger(Integer.toString(i)));
-
-		BigInteger result = multiOfN.divide(multiOfM);
-		int count = 0;
-		BigInteger checkZero = result.mod(new BigInteger(Integer.toString(10)));
-		while (checkZero.equals(BigInteger.ZERO)) {
-			count++;
-			result = result.divide(new BigInteger(Integer.toString(10)));
-			checkZero = result.mod(new BigInteger(Integer.toString(10)));
+		int saveN = n;
+		int saveM = m;
+		int countZero = 0;
+		int countTwoOfN = 0;
+		int countFiveOfN = 0;
+		int countTwoOfM = 0;
+		int countFiveOfM = 0;
+		int countTwo = 0;
+		int countFive = 0;
+		int loop = m;
+		while (loop != 0) {
+			while (saveN % 2 == 0) {
+				countTwoOfN++;
+				saveN /= 2;
+			}
+			while (saveN % 5 == 0) {
+				countFiveOfN++;
+				saveN /= 5;
+			}
+			while (saveM % 2 == 0) {
+				countTwoOfM++;
+				saveM /= 2;
+			}
+			while (saveM % 5 == 0) {
+				countFiveOfM++;
+				saveM /= 5;
+			}
+			saveN = --n;
+			saveM = --m;
+			loop--;
 		}
-		System.out.println(count);
+
+		countTwo = countTwoOfN - countTwoOfM;
+		countFive = countFiveOfN - countFiveOfM;
+
+		while (countTwo > 0 && countFive > 0) {
+			countZero++;
+			countTwo--;
+			countFive--;
+		}
+		System.out.println(countZero);
 		sc.close();
 	}
 }
