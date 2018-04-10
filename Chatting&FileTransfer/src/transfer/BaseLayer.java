@@ -55,4 +55,8 @@ public abstract class BaseLayer {
 	String getLayerName(){
 		return this.m_pLayerName;
 	}
+
+	void Receive(byte[] data){
+		return ;
+	}
 }
