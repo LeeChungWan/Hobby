@@ -24,6 +24,7 @@ public class EthernetLayer extends BaseLayer {
 		Ethernet_type[1] = 0; // 0x00 ¼³Á¤ (µÞºÎºÐ)
 		Ethernet_src = new byte[6];
 		Ethernet_dst = new byte[6];
+		Ethernet_data = new byte[ETHERNET_MAX_DATA_SIZE];
 		Ethernet_packet = new byte[ETHERNET_PACKET_SIZE];
 	}
 
@@ -64,10 +65,12 @@ public class EthernetLayer extends BaseLayer {
 	 */
 	@Override
 	boolean Send(byte[] data, int nlength) {
+		Ethernet_packet = new byte[ETHERNET_HEADER_SIZE + nlength];
 		setEthernet_src(Ethernet_src);
 		setEthernet_dst(Ethernet_dst);
 		System.arraycopy(Ethernet_type, 0, Ethernet_packet, 12, Ethernet_type.length);
-		if (this.mp_UnderLayer.Send(data, nlength)) {
+		System.arraycopy(data, 0, Ethernet_packet, 14, nlength);
+		if (this.getUnderLayer().Send(Ethernet_packet, ETHERNET_HEADER_SIZE + nlength)) {
 			return true;
 		}
 		System.out.println("[EthernetLayer] to [NILayer] sending fail.");
