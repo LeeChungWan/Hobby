@@ -24,6 +24,7 @@ public class EthernetLayer extends BaseLayer {
 		Ethernet_type[1] = 0; // 0x00 설정 (뒷부분)
 		Ethernet_src = new byte[6];
 		Ethernet_dst = new byte[6];
+		Ethernet_data = new byte[ETHERNET_MAX_DATA_SIZE];
 		Ethernet_packet = new byte[ETHERNET_PACKET_SIZE];
 	}
 
@@ -64,10 +65,12 @@ public class EthernetLayer extends BaseLayer {
 	 */
 	@Override
 	boolean Send(byte[] data, int nlength) {
+		Ethernet_packet = new byte[ETHERNET_HEADER_SIZE + nlength];
 		setEthernet_src(Ethernet_src);
 		setEthernet_dst(Ethernet_dst);
 		System.arraycopy(Ethernet_type, 0, Ethernet_packet, 12, Ethernet_type.length);
-		if (this.mp_UnderLayer.Send(data, nlength)) {
+		System.arraycopy(data, 0, Ethernet_packet, 14, nlength);
+		if (this.getUnderLayer().Send(Ethernet_packet, ETHERNET_HEADER_SIZE + nlength)) {
 			return true;
 		}
 		System.out.println("[EthernetLayer] to [NILayer] sending fail.");
@@ -77,9 +80,20 @@ public class EthernetLayer extends BaseLayer {
 	@Override
 	boolean Receive(byte[] data) {
 		// 받아온 패킷의 목적지 주소와 자신의 src 주소가 일치하는지 확인.
+		// broadcast 인지 확인.
+		int check_broadcast = 0;
 		for (int i = 0; i < 6; i++) {
-			if (Ethernet_src[i] != data[i])
-				return false;
+			if (data[i] == 0xff)
+				check_broadcast++;
+			else
+				break;
+		}
+
+		if (check_broadcast != 6) {
+			for (int i = 0; i < 6; i++) {
+				if (Ethernet_src[i] != data[i])
+					return false;
+			}
 		}
 
 		// 상위 레이어로 받은 패킷을 보내준다.
