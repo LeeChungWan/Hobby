@@ -80,9 +80,20 @@ public class EthernetLayer extends BaseLayer {
 	@Override
 	boolean Receive(byte[] data) {
 		// 받아온 패킷의 목적지 주소와 자신의 src 주소가 일치하는지 확인.
+		// broadcast 인지 확인.
+		int check_broadcast = 0;
 		for (int i = 0; i < 6; i++) {
-			if (Ethernet_src[i] != data[i])
-				return false;
+			if (data[i] == 0xff)
+				check_broadcast++;
+			else
+				break;
+		}
+
+		if (check_broadcast != 6) {
+			for (int i = 0; i < 6; i++) {
+				if (Ethernet_src[i] != data[i])
+					return false;
+			}
 		}
 
 		// 상위 레이어로 받은 패킷을 보내준다.
