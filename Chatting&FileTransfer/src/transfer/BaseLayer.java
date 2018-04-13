@@ -5,6 +5,7 @@ public abstract class BaseLayer {
 	BaseLayer mp_UnderLayer; // 하위 레이어
 	BaseLayer mp_UpperLayer; // 상위 레이어
 	int m_nUpperLayerCount; // 상위 레이어 수
+	boolean bSuccess;
 
 	/*
 	 * BaseLayer의 생성자로 레이어의 이름을 설정
