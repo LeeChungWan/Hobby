@@ -19,10 +19,23 @@ public class TCPLayer extends BaseLayer {
 	byte[] padding;
 	byte[] tcp_data; // 상위 레이어의 패킷
 	byte[] tcp_packet; // tcp packet = tcp_header + tcp_data
+	
+	ChatAppLayer chatAppLayer;
+	FileAppLayer fileAppLayer;
 
 	public TCPLayer(String pName) {
 		super(pName);
 		resetHeader();
+	}
+	
+	/*
+	 * ChatAppLayer와 FileAppLayer를 연결해주는 생성자.
+	 */
+	public TCPLayer(String pName, ChatAppLayer chatAppLayer, FileAppLayer fileAppLayer){
+		super(pName);
+		resetHeader();
+		this.chatAppLayer = chatAppLayer;
+		this.fileAppLayer = fileAppLayer;
 	}
 
 	/*
@@ -62,19 +75,25 @@ public class TCPLayer extends BaseLayer {
 		tcp_packet[3] = tcp_dport[1];
 	}
 
+	/*
+	 * 일단 목적지 포트를 제외한 다른 헤더의 값들은 설정을 안하고 해보자.
+	 */
 	@Override
 	boolean Send(byte[] data, int nlength) {
 		tcp_packet = new byte[TCP_HEADER_SIZE + nlength];
 		// ChatAppLayer에서 패킷이 온경우.
 		if (this.getUpperLayer().m_pLayerName.equals("ChatAppLayer")) {
 			byte[] chat_port = { 20, 80 };
-			setTcp_sport(chat_port);
+			setTcp_dport(chat_port);
 		} else {
 			// FileAppLayer에서 파일이 온경우.
 			byte[] file_port = { 20, 90 };
-			setTcp_sport(file_port);
+			setTcp_dport(file_port);
 		}
-		return false;
+		System.arraycopy(data, 0, tcp_packet, TCP_HEADER_SIZE, nlength);
+		bSuccess = this.getUnderLayer().Send(tcp_packet, tcp_packet.length);
+		System.out.println("[TCPLayer] to [??] sending fail.");
+		return bSuccess;
 	}
 
 	/*
@@ -82,13 +101,15 @@ public class TCPLayer extends BaseLayer {
 	 */
 	@Override
 	boolean Receive(byte[] data) {
+		tcp_data = new byte[data.length - TCP_HEADER_SIZE];
+		System.arraycopy(data, TCP_HEADER_SIZE, tcp_data, 0, tcp_data.length);
 		// ChatAppLayer로 가는 경우.
 		if (data[3] == 80) {
-
+			bSuccess = chatAppLayer.Receive(tcp_data);
 		} else {
 			// FileAppLayer로 가는 경우.
-
+			bSuccess = fileAppLayer.Receive(tcp_data);
 		}
-		return false;
+		return bSuccess;
 	}
 }
