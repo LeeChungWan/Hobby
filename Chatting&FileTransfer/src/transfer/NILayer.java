@@ -95,7 +95,7 @@ public class NILayer extends BaseLayer {
 	 */
 	@Override
 	boolean Receive() {
-		Receive_Thread thread = new Receive_Thread(m_AdapterObject, this.getUpperLayer());
+		Receive_Thread thread = new Receive_Thread(m_AdapterObject, ((NILayer)this.getUpperLayer()));
 		Thread obj = new Thread(thread);
 		obj.start();
 

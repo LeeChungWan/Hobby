@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import java.awt.Choice;
 import java.awt.Button;
 
+@SuppressWarnings("serial")
 public class GUI extends JFrame {
 
 	private JPanel contentPane;
@@ -19,11 +20,52 @@ public class GUI extends JFrame {
 	private JTextField transfer_bar;
 	private JTextField text_src_addr;
 	private JTextField text_dst_addr;
+	
+	// Layer 변수 설정.
+	static NILayer m_NiLayer;
+	static EthernetLayer m_EthernetLayer;
+	static IPLayer m_IpLayer;
+	static TCPLayer m_TcpLayer;
+	static ChatAppLayer m_ChatAppLayer;
+	static FileAppLayer m_FileAppLayer;
+	static GUI m_gui;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		m_NiLayer = new NILayer("NILayer");
+		m_EthernetLayer = new EthernetLayer("EthernetLayer");
+		m_IpLayer = new IPLayer("IPLayer");
+		m_TcpLayer = new TCPLayer("TCPLayer",m_ChatAppLayer,m_FileAppLayer);
+		m_ChatAppLayer = new ChatAppLayer("ChatAppLayer");
+		m_FileAppLayer = new FileAppLayer("FileAppLayer");
+		m_gui = new GUI();
+		
+		// NiLayer 상위 레이어 설정.
+		m_NiLayer.setUpperLayer(m_EthernetLayer);
+		
+		// EthernetLayer의 상,하위 레이어 설정.
+		m_EthernetLayer.setUpperLayer(m_IpLayer);
+		m_EthernetLayer.setUnderLayer(m_NiLayer);
+		
+		// IPLayer의 상,하위 레이어 설정.
+		m_IpLayer.setUpperLayer(m_TcpLayer);
+		m_IpLayer.setUnderLayer(m_EthernetLayer);
+		
+		// TCPLayer의 상,하위 레이어 설정.
+		m_TcpLayer.setUnderLayer(m_IpLayer);
+		
+		// ChatAppLayer 상, 하위 레이어 설정.
+		m_ChatAppLayer.setUpperLayer(m_gui);
+		m_ChatAppLayer.setUnderLayer(m_TcpLayer);
+		
+		// FileAppLayer 상, 하위 레이어 설정.
+		m_ChatAppLayer.setUpperLayer(m_gui);
+		m_ChatAppLayer.setUnderLayer(m_TcpLayer);
+		
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
