@@ -82,7 +82,7 @@ public class TCPLayer extends BaseLayer {
 	boolean Send(byte[] data, int nlength) {
 		tcp_packet = new byte[TCP_HEADER_SIZE + nlength];
 		// ChatAppLayer에서 패킷이 온경우.
-		if (this.getUpperLayer().m_pLayerName.equals("ChatAppLayer")) {
+		if (((TCPLayer)this.getUpperLayer()).m_pLayerName.equals("ChatAppLayer")) {
 			byte[] chat_port = { 20, 80 };
 			setTcp_dport(chat_port);
 		} else {
@@ -91,7 +91,7 @@ public class TCPLayer extends BaseLayer {
 			setTcp_dport(file_port);
 		}
 		System.arraycopy(data, 0, tcp_packet, TCP_HEADER_SIZE, nlength);
-		bSuccess = this.getUnderLayer().Send(tcp_packet, tcp_packet.length);
+		bSuccess = ((TCPLayer) this.getUnderLayer()).Send(tcp_packet, tcp_packet.length);
 		System.out.println("[TCPLayer] to [??] sending fail.");
 		return bSuccess;
 	}

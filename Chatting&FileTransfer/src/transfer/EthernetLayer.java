@@ -70,7 +70,7 @@ public class EthernetLayer extends BaseLayer {
 		setEthernet_dst(Ethernet_dst);
 		System.arraycopy(Ethernet_type, 0, Ethernet_packet, 12, Ethernet_type.length);
 		System.arraycopy(data, 0, Ethernet_packet, 14, nlength);
-		if (this.getUnderLayer().Send(Ethernet_packet, ETHERNET_HEADER_SIZE + nlength)) {
+		if (((EthernetLayer) this.getUnderLayer()).Send(Ethernet_packet, ETHERNET_HEADER_SIZE + nlength)) {
 			return true;
 		}
 		System.out.println("[EthernetLayer] to [NILayer] sending fail.");
@@ -99,7 +99,7 @@ public class EthernetLayer extends BaseLayer {
 		// 상위 레이어로 받은 패킷을 보내준다.
 		Ethernet_data = new byte[data.length - ETHERNET_HEADER_SIZE];
 		System.arraycopy(data, 14, Ethernet_data, 0, Ethernet_data.length);
-		if (this.mp_UpperLayer.Receive(Ethernet_data)) {
+		if (((EthernetLayer) this.getUpperLayer()).Receive(Ethernet_data)) {
 			return true;
 		}
 		System.out.println("[EhternetLayer] to [IPLayer] sending fail.");
