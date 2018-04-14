@@ -2,8 +2,8 @@ package transfer;
 
 public abstract class BaseLayer {
 	String m_pLayerName; // 레이어 이름
-	BaseLayer mp_UnderLayer; // 하위 레이어
-	BaseLayer mp_UpperLayer; // 상위 레이어
+	Object mp_UnderLayer; // 하위 레이어
+	Object mp_UpperLayer; // 상위 레이어
 	int m_nUpperLayerCount; // 상위 레이어 수
 	boolean bSuccess;
 
@@ -23,7 +23,7 @@ public abstract class BaseLayer {
 	 * 
 	 * @param upperLayer
 	 */
-	void setUpperLayer(BaseLayer upperLayer) {
+	void setUpperLayer(Object upperLayer) {
 		this.mp_UpperLayer = upperLayer;
 	}
 
@@ -32,7 +32,7 @@ public abstract class BaseLayer {
 	 * 
 	 * @param underLayer
 	 */
-	void setUnderLayer(BaseLayer underLayer) {
+	void setUnderLayer(Object underLayer) {
 		this.mp_UnderLayer = underLayer;
 	}
 
@@ -41,7 +41,7 @@ public abstract class BaseLayer {
 	 * 
 	 * @return this.mp_UpperLayer;
 	 */
-	BaseLayer getUpperLayer() {
+	Object getUpperLayer() {
 		return this.mp_UpperLayer;
 	}
 
@@ -50,7 +50,7 @@ public abstract class BaseLayer {
 	 * 
 	 * @return this.mp_UnderLayer;
 	 */
-	BaseLayer getUnderLayer() {
+	Object getUnderLayer() {
 		return this.mp_UnderLayer;
 	}
 
