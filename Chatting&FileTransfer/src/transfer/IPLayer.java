@@ -65,7 +65,7 @@ public class IPLayer extends BaseLayer {
 		// 이번 프로젝트는 IP를 사용하지 않아 해더를 비워주고 보낸다.
 		ip_packet = new byte[IP_HEADER_LENGTH + nlength];
 		System.arraycopy(data, IP_HEADER_LENGTH, ip_packet, 0, ip_packet.length);
-		if (this.getUnderLayer().Send(ip_packet, ip_packet.length))
+		if (((IPLayer) this.getUnderLayer()).Send(ip_packet, ip_packet.length))
 			return true;
 		return false;
 	}
@@ -80,7 +80,7 @@ public class IPLayer extends BaseLayer {
 		ip_data = new byte[data.length - IP_HEADER_LENGTH];
 		System.arraycopy(data, IP_HEADER_LENGTH, ip_data, 0, ip_data.length);
 
-		if (this.getUpperLayer().Receive(ip_data))
+		if (((IPLayer) this.getUpperLayer()).Receive(ip_data))
 			return true;
 		return false;
 	}
