@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+/*
+ * 다음에 풀 방법 
+ * 2x2배열을 만들어서 Min(opt(i-1,j), opt(i, j-1)) 식으로 해결해보기.
+ */
 public class No1699 {
 	public static int pow_2(int num) {
 		return num * num;
