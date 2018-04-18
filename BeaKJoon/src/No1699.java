@@ -2,50 +2,39 @@ import java.util.Scanner;
 
 /*
  * 다음에 풀 방법 
- * 2x2배열을 만들어서 Min(opt(i-1,j), opt(i, j-1)) 식으로 해결해보기.
+ * 전체 배열을 만들어서 값을 넣고 시작.
  */
 public class No1699 {
 	public static int pow_2(int num) {
 		return num * num;
 	}
 
-	public static int minimum(int num, int[] arr) {
-		int j = 0;
-		int value = num;
-		int count = 0;
-		int[] changedArr = null;
-		while (value != 0) {
-			// 이곳에서 i에 값을 유동적으로 바꾸어주어 성능 향상 시킬수 있을듯.
-			for (int i = j; i < arr.length; i++) {
-				if (value - arr[i] >= 0) {
-					value -= arr[i];
-					count++;
-					if (i != 0)
-						j = i;
-					break;
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		int min = 0;
+		int sqrt = 0;
+		int[] dp = new int[100001];
+		
+		for(int i=1; i<317; i++)
+			dp[i*i] = 1;
+		
+		dp[0] = 0;
+		dp[1] = 1;
+		dp[2] = 2;
+		
+		for(int i=3; i<100001; i++){
+			sqrt = (int)Math.sqrt(i);
+			min = 10000;
+			for(int j=sqrt; j>=1;j--){
+				int temp = 1 + dp[i-(j*j)];
+				if(min > temp){
+					min = temp;
+					dp[i] = min;
 				}
 			}
 		}
-
-		if (arr.length > 1) {
-			changedArr = new int[arr.length - 1];
-			for (int i = 0; i < changedArr.length; i++)
-				changedArr[i] = arr[i + 1];
-			return Math.min(count, minimum(num, changedArr));
-		} else
-			return count;
-	}
-
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int num = sc.nextInt();
-		int sqrt = (int) Math.sqrt(num);
-		int[] arr = new int[sqrt];
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = pow_2(sqrt);
-			sqrt--;
-		}
-		System.out.println(minimum(num, arr));
+		System.out.println(dp[n]);
 		sc.close();
 	}
 
