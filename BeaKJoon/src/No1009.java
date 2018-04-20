@@ -11,7 +11,7 @@ public class No1009 {
 		for (int j = 0; j < numOfCase; j++) {
 			a = sc.nextInt();
 			b = sc.nextInt();
-			if (a == 10)
+			if (a % 10 == 0)
 				result[j] = 10;
 			else {
 				int temp = a % 10;
