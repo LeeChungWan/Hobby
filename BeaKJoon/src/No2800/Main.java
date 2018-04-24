@@ -1,3 +1,4 @@
+package No2800;
 import java.util.Scanner;
 
 /*
@@ -8,7 +9,7 @@ import java.util.Scanner;
  *      수식의 길이는 최대 200이고, 괄호 쌍은 적어도 1개, 많아야 10개이다. 
  * 출력 : 올바른 괄호 쌍을 제거해서 나올 수 있는 서로 다른 식을 사전 순으로 출력한다.
  */
-public class No2800 {
+public class Main {
 
 	public static void removeBracket(String problem, int numOfIndexX) {
 		char[][] stack = add(problem, numOfIndexX);

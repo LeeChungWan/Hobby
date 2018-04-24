@@ -1,10 +1,11 @@
+package No1699;
 import java.util.Scanner;
 
 /*
  * 다음에 풀 방법 
  * 전체 배열을 만들어서 값을 넣고 시작.
  */
-public class No1699 {
+public class Main {
 	public static int pow_2(int num) {
 		return num * num;
 	}

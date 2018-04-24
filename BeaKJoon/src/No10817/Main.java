@@ -1,6 +1,7 @@
+package No10817;
 import java.util.Scanner;
 
-public class No10817 {
+public class Main {
 
 	public static void compareOfValue(Node[] node) {
 		if (node[0].value < node[1].value)

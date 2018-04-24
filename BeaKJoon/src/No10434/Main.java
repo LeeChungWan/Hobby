@@ -1,3 +1,4 @@
+package No10434;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,7 +10,7 @@ import java.util.Scanner;
  * 각 테스트 케이스는 테스트 케이스 번호와 행복한 소수인지 판정해야 할 정수인 M으로 이루어져 있다. (1 ≤ m ≤ 10000).
  * 출력 : 각 테스트 케이스마다, 테스트 케이스의 번호, 입력받은 수, 만일 M이 행복한 소수라면 YES 아니라면 NO를 공백으로 각각 구분하여 출력한다.
  */
-public class No10434 {
+public class Main {
 	static List<Integer> checkValue = new ArrayList<>();
 
 	public static void happyPrimeNumber(int[] arr) {

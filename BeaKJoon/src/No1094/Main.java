@@ -1,3 +1,4 @@
+package No1094;
 import java.util.Scanner;
 /*
  * 문제 1094번 막대기
@@ -5,7 +6,7 @@ import java.util.Scanner;
  * 입력:첫째 줄에 X가 주어진다. X는 64보다 작거나 같은 자연수이다.
  * 출력:문제의 과정을 거친다면, 몇 개의 막대를 풀로 붙여서 Xcm를 만들 수 있는지 출력한다.
  */
-public class No1094 {
+public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int sticksTotalLength = 64;

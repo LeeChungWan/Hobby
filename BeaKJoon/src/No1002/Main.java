@@ -1,3 +1,4 @@
+package No1002;
 import java.util.Scanner;
 
 /*
@@ -10,7 +11,7 @@ import java.util.Scanner;
  * 출력 : 각 테스트 케이스마다 류재명이 있을 수 있는 위치의 수를 출력한다. 
  *      만약 류재명이 있을 수 있는 위치의 개수가 무한대일 경우에는 -1을 출력한다.
  */
-public class No1002 {
+public class Main {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);

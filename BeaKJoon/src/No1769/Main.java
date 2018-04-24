@@ -1,3 +1,4 @@
+package No1769;
 import java.util.Scanner;
 
 /*
@@ -7,7 +8,7 @@ import java.util.Scanner;
  * 출력 : 첫째 줄에 문제 변환의 과정을 몇 번 거쳤는지를 출력한다. 이 수는 음이 아닌 정수가 되어야 한다. 
  *      둘째 줄에는 주어진 수가 3의 배수이면 YES, 아니면 NO를 출력한다.
  */
-public class No1769 {
+public class Main {
 
 	public static void count(String num, int countY) {
 		int sum = 0;

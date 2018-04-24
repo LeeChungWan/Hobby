@@ -1,6 +1,7 @@
+package No14563;
 import java.util.Scanner;
 
-public class No14563 {
+public class Main {
 
 	public static int calculate(int value) {
 		int compareSum = 0;

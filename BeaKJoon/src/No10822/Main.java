@@ -1,3 +1,4 @@
+package No10822;
 import java.util.Scanner;
 
 /*
@@ -9,7 +10,7 @@ import java.util.Scanner;
  * 출력 : 문자열 S에 포함되어 있는 자연수의 합을 출력한다.
  * 풀이 : 문자열을 char 배열로 바꾸어 ,가 나오기 전값을 문자열로 합치고 ,이 나오면 만든 문자열을 정수로 바꾸어 더하기.
  */
-public class No10822 {
+public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		String str = sc.nextLine();

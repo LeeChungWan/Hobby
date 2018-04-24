@@ -1,3 +1,4 @@
+package No2394;
 import java.util.Scanner;
 
 /*
@@ -11,7 +12,7 @@ import java.util.Scanner;
  *      다음 줄에는 드라이브 경로를 출력한다. 
  *      1번 도시에서 N번에 갔다가 다시 돌아올 수 없는 경우에는 0을 출력한다.
  */
-public class No2394 {
+public class Main {
 
 	public static void searchPath(boolean[][] map, boolean[][] visit, int numOfWay) {
 

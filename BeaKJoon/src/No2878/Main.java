@@ -1,3 +1,4 @@
+package No2878;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -19,7 +20,7 @@ import java.util.Scanner;
  * 
  * 출력 : 첫째 줄에 택희 친구들의 분노의 합의 최소값을 264로 나눈 나머지를 출력한다.
  */
-public class No2878 {
+public class Main {
 
 	public static int countBadMood(int overCandy, int[] friend) {
 		int minimum = friend[0] * friend.length;

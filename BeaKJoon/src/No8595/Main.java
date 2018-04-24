@@ -1,6 +1,7 @@
+package No8595;
 import java.util.Scanner;
 
-public class No8595 {
+public class Main {
 	/*
 	 * 문제 8595번 히든 넘버
 	 * 

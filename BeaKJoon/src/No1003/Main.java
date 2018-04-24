@@ -1,6 +1,7 @@
+package No1003;
 import java.util.Scanner;
 
-public class No1003 {
+public class Main {
 	public static long countZero(int n) {
 		long[] arr = new long[n + 1];
 		arr[0] = 1;
