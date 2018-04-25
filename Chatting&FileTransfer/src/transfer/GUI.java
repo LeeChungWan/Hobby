@@ -90,6 +90,7 @@ public class GUI extends JFrame {
 		JLabel label_chatting = new JLabel("채팅");
 		label_chatting.setBounds(12, 10, 36, 20);
 		
+		//채팅창
 		JTextArea chatting_area = new JTextArea();
 		chatting_area.setBounds(22, 40, 472, 261);
 		
@@ -124,8 +125,13 @@ public class GUI extends JFrame {
 		JLabel label_NIC = new JLabel("NIC 선택");
 		label_NIC.setBounds(510, 38, 57, 15);
 		
+		// NIC 선택 바.
 		Choice choice_NIC = new Choice();
 		choice_NIC.setBounds(510, 60, 264, 21);
+		// NIC bar에 네트워크 카드 리스트 추가.
+		for(int i=0; i<m_NiLayer.m_pAdapterList.size();i++){
+			choice_NIC.add(m_NiLayer.m_pAdapterList.get(i).getName());			
+		}
 		
 		text_src_addr = new JTextField();
 		text_src_addr.setBounds(510, 115, 264, 21);
