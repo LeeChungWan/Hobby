@@ -1,6 +1,8 @@
 package transfer;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Choice;
 import java.awt.Button;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class GUI extends JFrame {
@@ -20,6 +23,9 @@ public class GUI extends JFrame {
 	private JTextField transfer_bar;
 	private JTextField text_src_addr;
 	private JTextField text_dst_addr;
+	private Button btn_set;
+	private Button btn_reset;
+	private Choice choice_NIC;
 	
 	// Layer 변수 설정.
 	static NILayer m_NiLayer;
@@ -30,6 +36,7 @@ public class GUI extends JFrame {
 	static FileAppLayer m_FileAppLayer;
 	static GUI m_gui;
 
+	private Listener listener = new Listener();
 	/**
 	 * Launch the application.
 	 */
@@ -78,6 +85,28 @@ public class GUI extends JFrame {
 		});
 	}
 
+	class Listener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// 설정 버튼을 클릭했을 경우.
+			if(e.getSource() == btn_set){
+				choice_NIC.setEnabled(false);
+				text_src_addr.setEnabled(false);
+				text_dst_addr.setEnabled(false);
+			}
+			// 재설정 버튼을 클릭했을 경우.
+			if(e.getSource() == btn_reset){
+				choice_NIC.setEnabled(true);
+				text_src_addr.setEnabled(true);
+				text_dst_addr.setEnabled(true);
+			}
+		}
+		
+	}
+	
+	
+	
 	/**
 	 * Create the frame.
 	 */
@@ -126,32 +155,37 @@ public class GUI extends JFrame {
 		label_NIC.setBounds(510, 38, 57, 15);
 		
 		// NIC 선택 바.
-		Choice choice_NIC = new Choice();
+		choice_NIC = new Choice();
 		choice_NIC.setBounds(510, 60, 264, 21);
 		// NIC bar에 네트워크 카드 리스트 추가.
 		for(int i=0; i<m_NiLayer.m_pAdapterList.size();i++){
 			choice_NIC.add(m_NiLayer.m_pAdapterList.get(i).getName());			
 		}
 		
-		text_src_addr = new JTextField();
-		text_src_addr.setBounds(510, 115, 264, 21);
-		text_src_addr.setColumns(10);
-		
-		JLabel label_dst_addr = new JLabel("목적지 주소");
-		label_dst_addr.setBounds(510, 146, 80, 15);
-		
+		JLabel label_src_addr = new JLabel("시작 주소");
+		label_src_addr.setBounds(510, 86, 57, 15);
 		text_dst_addr = new JTextField();
+		text_dst_addr.setText("XX:XX:XX:XX:XX");
+		text_dst_addr.setHorizontalAlignment(SwingConstants.CENTER);
 		text_dst_addr.setBounds(510, 171, 264, 21);
 		text_dst_addr.setColumns(10);
 		
-		JLabel label_src_addr = new JLabel("시작 주소");
-		label_src_addr.setBounds(510, 86, 57, 15);
+		JLabel label_dst_addr = new JLabel("목적지 주소");
+		label_dst_addr.setBounds(510, 146, 80, 15);
+		text_src_addr = new JTextField();
+		text_src_addr.setHorizontalAlignment(SwingConstants.CENTER);
+		text_src_addr.setText("XX:XX:XX:XX:XX");
+		text_src_addr.setBounds(510, 115, 264, 21);
+		text_src_addr.setColumns(10);
 		
-		Button btn_reset = new Button("재설정(R)");
-		btn_reset.setBounds(605, 248, 76, 23);
-		
-		Button btn_set = new Button("설정(S)");
+		btn_set = new Button("설정(S)");
 		btn_set.setBounds(605, 217, 76, 23);
+		btn_set.addActionListener(listener); // 액션 리스너 추가.
+
+		btn_reset = new Button("재설정(R)");
+		btn_reset.setBounds(605, 248, 76, 23);
+		btn_reset.addActionListener(listener); // 액션 리스너 추가.
+		
 		contentPane.setLayout(null);
 		contentPane.add(label_chatting);
 		contentPane.add(chatting_area);
