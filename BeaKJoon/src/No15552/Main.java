@@ -1,8 +1,10 @@
 package No15552;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 
 /*
@@ -16,13 +18,15 @@ public class Main {
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		br.readLine(); // 한줄 거르기.
-		String line = br.readLine();
-		while (line != null) {
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		int N = Integer.parseInt(br.readLine()); // 한줄 거르기.
+		for (int i = 0; i < N; i++) {
+			String line = br.readLine();
 			StringTokenizer parser = new StringTokenizer(line, " ");
-			System.out.println(Integer.parseInt(parser.nextToken()) + Integer.parseInt(parser.nextToken()));
-			line = br.readLine();
+			bw.write(Integer.parseInt(parser.nextToken()) + Integer.parseInt(parser.nextToken()) + "\n");
 		}
+		bw.flush();
+		bw.close();
 
 	}
 
