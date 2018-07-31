@@ -1,18 +1,20 @@
 def solution(s):
-    stack = []
+    stack = 0
     isCorrect = False
     isBreak = False
+    if len(s) % 2 is 1:
+        return False
     for bracket in s:
         if bracket == '(':
-            stack.append(bracket)
+            stack += 1
         else:
-            if len(stack) is 0:
+            if stack is 0:
                 isBreak = True
                 break
             else:
-                stack.remove('(')
+                stack -= 1
     if isBreak:
         return False
-    if len(stack) is 0:
+    if stack is 0:
         return True
     return False
