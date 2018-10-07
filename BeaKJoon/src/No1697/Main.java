@@ -41,7 +41,7 @@ public class Main {
 						isFind = true;
 						cnt++;
 						break;
-					} else if (!visited[next[i]] && next[i] >= 0 && next[i] <= 100000) {
+					} else if (next[i] >= 0 && next[i] <= 100000 && !visited[next[i]]) {
 						visited[next[i]] = true;
 						queue.add(next[i]);
 					}
